@@ -1,15 +1,17 @@
 import streamlit as st
 import gspread
 import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import json
 
 # --- 1. CONNEXION SÉCURISÉE ---
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-# On récupère le secret qu'on vient de coller dans Streamlit
+# On récupère le secret depuis Streamlit
 creds_dict = json.loads(st.secrets["google_credentials"])
-creds = ServiceAccountCredentials.from_service_account_info(creds_dict, scope)
+
+# NOUVELLE LIGNE : On utilise la bonne méthode de google-auth
+creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
 client = gspread.authorize(creds)
 
 # --- 2. LECTURE DES DONNÉES ---
