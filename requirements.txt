@@ -1,5 +1,4 @@
 streamlit
 pandas
-openpyxl
-matplotlib
-seaborn
+gspread
+oauth2client
